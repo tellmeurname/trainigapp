@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:godtrain/services/auth_service.dart';
-
+import 'package:godtrain/screeens/home_screen.dart';
 class AuthForm extends StatefulWidget {
   @override
   _AuthFormState createState() => _AuthFormState();
@@ -13,10 +13,11 @@ class _AuthFormState extends State<AuthForm> {
   String _password = '';
   bool _isLogin = true; // Переменная для переключения между входом и регистрацией
 
-  void _submit() async {
-    if (_formKey.currentState!.validate()) {
-      _formKey.currentState!.save();
+void _submit() async {
+  if (_formKey.currentState!.validate()) {
+    _formKey.currentState!.save();
 
+    try {
       if (_isLogin) {
         // Вход
         await _authService.login(_email, _password);
@@ -24,9 +25,19 @@ class _AuthFormState extends State<AuthForm> {
         // Регистрация
         await _authService.register(_email, _password);
       }
+      // Перенаправление на главный экран
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => HomeScreen()),
+      );
+    } catch (e) {
+      // Обработка ошибок (например, неверный пароль)
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(e.toString())),
+      );
     }
   }
-
+}
   @override
   Widget build(BuildContext context) {
     return Padding(

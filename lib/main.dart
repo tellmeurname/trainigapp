@@ -10,14 +10,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Auth App',
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('Аутентификация'),
-        ),
-        body: Center(
-          child: Text('Форма аутентификация'),
-        ),
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
       ),
+      home: AuthScreen(), // Используем AuthScreen как стартовый экран
     );
   }
 }
