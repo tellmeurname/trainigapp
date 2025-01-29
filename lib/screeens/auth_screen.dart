@@ -4,11 +4,12 @@ import 'package:godtrain/widgets/auth_form.dart'; // Импортируем Auth
 class AuthScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    print("Отрисовывается AuthScreen");
     return Scaffold(
       appBar: AppBar(
         title: Text('Аутентификация'),
       ),
-      body: AuthForm(), // Используем AuthForm
+      body: AuthForm(),
     );
   }
 }

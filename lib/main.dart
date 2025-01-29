@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:godtrain/screeens/auth_screen.dart';
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
+import 'package:sqflite_common_ffi_web/sqflite_ffi_web.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  sqfliteFfiInit();
+  databaseFactory = databaseFactoryFfiWeb;
+  
+  print("Приложение запускается...");
   runApp(MyApp());
 }
+
 
 class MyApp extends StatelessWidget {
   @override
@@ -13,7 +21,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: AuthScreen(), // Используем AuthScreen как стартовый экран
+      home: AuthScreen(),
     );
   }
 }

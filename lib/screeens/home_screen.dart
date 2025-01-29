@@ -1,6 +1,7 @@
 // home_screen.dart
 import 'package:flutter/material.dart';
 import 'package:godtrain/screeens/settings_screen.dart';
+
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -35,18 +36,6 @@ class HomeScreen extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => SettingsScreen()),
-                );
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.settings),
-              title: Text('Настройки'),
-              onTap: () {
-                // Закрываем Drawer
-                Navigator.pop(context);
-                // Переходим на экран настроек (пока просто заглушка)
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('Переход на настройки')),
                 );
               },
             ),
