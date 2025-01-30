@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:godtrain/services/auth_service.dart';
 import 'package:godtrain/screeens/home_screen.dart';
+import 'package:firebase_auth_web/firebase_auth_web.dart';
 
 class AuthForm extends StatefulWidget {
   @override
