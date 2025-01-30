@@ -1,6 +1,10 @@
-// home_screen.dart
 import 'package:flutter/material.dart';
+import 'package:godtrain/screeens/auth_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:godtrain/screeens/settings_screen.dart';
+import 'package:godtrain/screeens/workout_screen.dart'; 
+import 'package:godtrain/screeens/my_workouts_screen.dart';
+import 'package:godtrain/database/exercise_database_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -9,7 +13,6 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text('Главный экран'),
       ),
-      // Добавляем Drawer
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
@@ -30,22 +33,84 @@ class HomeScreen extends StatelessWidget {
               leading: Icon(Icons.settings),
               title: Text('Настройки'),
               onTap: () {
-                // Закрываем Drawer
                 Navigator.pop(context);
-                // Переходим на экран настроек
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => SettingsScreen()),
                 );
               },
             ),
-            // Добавьте другие вкладки здесь
+            ListTile(
+              leading: Icon(Icons.fitness_center),
+              title: Text('Мои тренировки'),
+              onTap: () {
+                Navigator.pop(context);
+                // Переход на экран "Мои тренировки"
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => MyWorkoutsScreen()),
+                );
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.list),
+              title: Text('База упражнений'),
+              onTap: () {
+                Navigator.pop(context);
+                // Переход на экран "База упражнений"
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ExerciseDatabaseScreen()),
+                );
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.logout),
+              title: Text('Выход из учетной записи'),
+              onTap: () {
+                Navigator.pop(context);
+                // Логика выхода из учетной записи
+                _logout(context);
+              },
+            ),
           ],
         ),
       ),
       body: Center(
-        child: Text('Добро пожаловать!'),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                // Переход на экран тренировки
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => WorkoutScreen()),
+                );
+              },
+              child: Text('Начать тренировку'),
+            ),
+          ],
+        ),
       ),
     );
+  }
+
+  // Метод для выхода из учетной записи
+  void _logout(BuildContext context) async {
+    try {
+      await FirebaseAuth.instance.signOut();
+      print("✅ Пользователь вышел из учетной записи");
+      // Перенаправление на экран аутентификации
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => AuthScreen()),
+      );
+    } catch (e) {
+      print("❌ Ошибка выхода: $e");
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Ошибка выхода: $e')),
+      );
+    }
   }
 }

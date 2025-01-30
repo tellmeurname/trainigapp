@@ -1,15 +1,14 @@
-
 import 'package:flutter/material.dart';
 
-class SettingsScreen extends StatelessWidget {
+class MyWorkoutsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Настройки'),
+        title: Text('Мои тренировки'),
       ),
       body: Center(
-        child: Text('Экран настроек'),
+        child: Text('Здесь будут ваши тренировки'),
       ),
     );
   }
