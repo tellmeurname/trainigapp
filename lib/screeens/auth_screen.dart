@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:godtrain/widgets/auth_form.dart'; // Импортируем AuthForm
+import 'package:godtrain/widgets/auth_form.dart';
 
 class AuthScreen extends StatelessWidget {
   @override

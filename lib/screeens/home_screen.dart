@@ -57,7 +57,7 @@ class HomeScreen extends StatelessWidget {
               title: Text('База упражнений'),
               onTap: () {
                 Navigator.pop(context);
-                // Переход на экран "База упражнений"
+                
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => ExerciseDatabaseScreen()),
@@ -69,7 +69,7 @@ class HomeScreen extends StatelessWidget {
               title: Text('Выход из учетной записи'),
               onTap: () {
                 Navigator.pop(context);
-                // Логика выхода из учетной записи
+               
                 _logout(context);
               },
             ),
@@ -82,7 +82,7 @@ class HomeScreen extends StatelessWidget {
           children: [
             ElevatedButton(
               onPressed: () {
-                // Переход на экран тренировки
+                
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => WorkoutScreen()),
@@ -96,12 +96,11 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  // Метод для выхода из учетной записи
   void _logout(BuildContext context) async {
     try {
       await FirebaseAuth.instance.signOut();
       print("✅ Пользователь вышел из учетной записи");
-      // Перенаправление на экран аутентификации
+    
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => AuthScreen()),

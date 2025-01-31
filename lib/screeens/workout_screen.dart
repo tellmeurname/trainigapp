@@ -1,4 +1,4 @@
-// workout_screen.dart
+
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:godtrain/models/exercise.dart';
@@ -13,7 +13,7 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
   List<Exercise> _exercises = [];
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  // Метод для открытия меню выбора упражнений
+
   void _addExercise(BuildContext context) async {
     final selectedExercise = await Navigator.push(
       context,
@@ -27,7 +27,7 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
     }
   }
 
-  // Метод для изменения порядка упражнений
+
   void _moveExercise(int oldIndex, int newIndex) {
     setState(() {
       if (newIndex > oldIndex) {
@@ -97,7 +97,7 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
     );
   }
 
-  // Метод для редактирования параметров упражнения
+
   void _editExercise(BuildContext context, Exercise exercise, int index) async {
     final result = await showDialog<Map<String, dynamic>>(
       context: context,
@@ -120,7 +120,7 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
   }
 }
 
-// Диалог для редактирования параметров упражнения
+
 class ExerciseEditDialog extends StatefulWidget {
   final Exercise exercise;
 
