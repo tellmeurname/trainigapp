@@ -1,4 +1,4 @@
-
+// workout_screen.dart
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:godtrain/models/exercise.dart';
@@ -13,7 +13,6 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
   List<Exercise> _exercises = [];
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-
   void _addExercise(BuildContext context) async {
     final selectedExercise = await Navigator.push(
       context,
@@ -27,6 +26,31 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
     }
   }
 
+  Future<void> _saveWorkout() async {
+    try {
+      final workoutData = {
+        'date': Timestamp.now(),
+        'exercises': _exercises.map((e) => {
+              'id': e.id,
+              'name': e.name,
+              'description': e.description,
+              'type': e.type,
+              'sets': e.sets,
+              'reps': e.reps,
+              'weight': e.weight,
+            }).toList(),
+      };
+
+      await _firestore.collection('workouts').add(workoutData);
+      print('✅ Тренировка сохранена');
+      Navigator.pop(context);
+    } catch (e) {
+      print('❌ Ошибка сохранения тренировки: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Ошибка сохранения: $e')),
+      );
+    }
+  }
 
   void _moveExercise(int oldIndex, int newIndex) {
     setState(() {
@@ -47,6 +71,10 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
           IconButton(
             icon: Icon(Icons.add),
             onPressed: () => _addExercise(context),
+          ),
+          IconButton(
+            icon: Icon(Icons.save),
+            onPressed: _saveWorkout,
           ),
         ],
       ),
@@ -97,7 +125,6 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
     );
   }
 
-
   void _editExercise(BuildContext context, Exercise exercise, int index) async {
     final result = await showDialog<Map<String, dynamic>>(
       context: context,
@@ -119,7 +146,6 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
     }
   }
 }
-
 
 class ExerciseEditDialog extends StatefulWidget {
   final Exercise exercise;

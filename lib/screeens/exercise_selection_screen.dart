@@ -1,4 +1,4 @@
-
+// exercise_selection_screen.dart
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:godtrain/models/exercise.dart';
@@ -34,6 +34,9 @@ class ExerciseSelectionScreen extends StatelessWidget {
               name: data['name'],
               description: data['description'],
               type: data['type'],
+              sets: data['sets'] ?? 0, // Значение по умолчанию
+              reps: data['reps'] ?? 0, // Значение по умолчанию
+              weight: data['weight']?.toDouble() ?? 0.0, // Значение по умолчанию
             );
           }).toList();
 
@@ -67,6 +70,9 @@ class ExerciseSelectionScreen extends StatelessWidget {
         'name': newExercise.name,
         'description': newExercise.description,
         'type': newExercise.type,
+        'sets': newExercise.sets,
+        'reps': newExercise.reps,
+        'weight': newExercise.weight,
       });
       Navigator.pop(context, newExercise);
     }
@@ -117,6 +123,9 @@ class _AddExerciseDialogState extends State<AddExerciseDialog> {
               name: _nameController.text,
               description: _descriptionController.text,
               type: _typeController.text,
+              sets: 0, // Значение по умолчанию
+              reps: 0, // Значение по умолчанию
+              weight: 0.0, // Значение по умолчанию
             );
             Navigator.pop(context, exercise);
           },
