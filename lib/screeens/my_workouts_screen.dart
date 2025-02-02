@@ -23,20 +23,19 @@ class MyWorkoutsScreen extends StatelessWidget {
             return Center(child: Text('Нет сохранённых тренировок'));
           }
 
-          // Преобразуем данные из Firestore
           final workouts = snapshot.data!.docs.map((doc) {
             final data = doc.data() as Map<String, dynamic>;
 
-            // Проверка наличия полей 'date' и 'exercises'
+
             if (data['date'] == null || data['exercises'] == null) {
               print('⚠️ Некорректные данные в документе: $data');
-              return null; // Пропускаем некорректные документы
+              return null; 
             }
 
-            // Преобразование 'date' из Timestamp в DateTime
+
             final date = (data['date'] as Timestamp).toDate();
 
-            // Преобразование JSON-строки в список упражнений
+
             final exercisesJson = data['exercises'] as String;
             final exercisesList = jsonDecode(exercisesJson) as List<dynamic>;
 
@@ -53,17 +52,13 @@ class MyWorkoutsScreen extends StatelessWidget {
             }).toList();
 
             return {'date': date, 'exercises': exercises};
-          }).where((workout) => workout != null).toList(); // Фильтруем null-значения
+          }).where((workout) => workout != null).toList(); 
 
           return ListView.builder(
             itemCount: workouts.length,
             itemBuilder: (context, index) {
               final workout = workouts[index] as Map<String, dynamic>;
-
-              // Форматирование даты
               final formattedDate = DateFormat('dd MMMM yyyy').format(workout['date'] as DateTime);
-
-              // Отображение упражнений
               return ExpansionTile(
                 title: Text(formattedDate),
                 children: (workout['exercises'] as List<Exercise>).map<Widget>((exercise) {
