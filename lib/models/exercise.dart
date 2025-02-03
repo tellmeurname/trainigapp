@@ -13,9 +13,9 @@ class Exercise {
     required this.name,
     required this.description,
     required this.type,
-    this.sets = 0, // Значение по умолчанию
-    this.reps = 0, // Значение по умолчанию
-    this.weight = 0.0, // Значение по умолчанию
+    required this.sets,
+    required this.reps,
+    required this.weight,
   });
 
   Map<String, dynamic> toMap() {
@@ -36,9 +36,9 @@ class Exercise {
       name: map['name'],
       description: map['description'],
       type: map['type'],
-      sets: map['sets'] ?? 0,
-      reps: map['reps'] ?? 0,
-      weight: map['weight']?.toDouble() ?? 0.0,
+      sets: map['sets'] ?? 0, // Значение по умолчанию
+      reps: map['reps'] ?? 0, // Значение по умолчанию
+      weight: map['weight']?.toDouble() ?? 0.0, // Значение по умолчанию
     );
   }
 }

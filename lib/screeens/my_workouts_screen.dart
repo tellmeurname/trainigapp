@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart'; // Для форматирования даты
-import 'dart:convert'; // Для работы с JSON
 import 'package:godtrain/models/exercise.dart';
 
 class MyWorkoutsScreen extends StatelessWidget {
@@ -23,22 +22,21 @@ class MyWorkoutsScreen extends StatelessWidget {
             return Center(child: Text('Нет сохранённых тренировок'));
           }
 
+          // Преобразуем данные из Firestore
           final workouts = snapshot.data!.docs.map((doc) {
             final data = doc.data() as Map<String, dynamic>;
 
-
+            // Проверка наличия полей 'date' и 'exercises'
             if (data['date'] == null || data['exercises'] == null) {
               print('⚠️ Некорректные данные в документе: $data');
-              return null; 
+              return null; // Пропускаем некорректные документы
             }
 
-
+            // Преобразование 'date' из Timestamp в DateTime
             final date = (data['date'] as Timestamp).toDate();
 
-
-            final exercisesJson = data['exercises'] as String;
-            final exercisesList = jsonDecode(exercisesJson) as List<dynamic>;
-
+            // Преобразование массива в список упражнений
+            final exercisesList = data['exercises'] as List<dynamic>;
             final exercises = exercisesList.map((e) {
               return Exercise(
                 id: e['id'],
@@ -52,13 +50,17 @@ class MyWorkoutsScreen extends StatelessWidget {
             }).toList();
 
             return {'date': date, 'exercises': exercises};
-          }).where((workout) => workout != null).toList(); 
+          }).where((workout) => workout != null).toList(); // Фильтруем null-значения
 
           return ListView.builder(
             itemCount: workouts.length,
             itemBuilder: (context, index) {
               final workout = workouts[index] as Map<String, dynamic>;
+
+              // Форматирование даты
               final formattedDate = DateFormat('dd MMMM yyyy').format(workout['date'] as DateTime);
+
+              // Отображение упражнений
               return ExpansionTile(
                 title: Text(formattedDate),
                 children: (workout['exercises'] as List<Exercise>).map<Widget>((exercise) {

@@ -13,7 +13,7 @@ class _AuthFormState extends State<AuthForm> {
   final AuthService _authService = AuthService();
   String _email = '';
   String _password = '';
-  bool _isLogin = true; // Переменная для переключения между входом и регистрацией
+  bool _isLogin = true; 
 
   void _submit() async {
     print("Форма отправлена");
