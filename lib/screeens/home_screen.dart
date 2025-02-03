@@ -6,6 +6,7 @@ import 'package:godtrain/screeens/settings_screen.dart';
 import 'package:godtrain/screeens/workout_screen.dart';
 import 'package:godtrain/screeens/my_workouts_screen.dart';
 import 'package:godtrain/database/exercise_database_screen.dart';
+import 'package:godtrain/screeens/progress_graph_screen.dart'; // Новый импорт
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -20,6 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
     WorkoutScreen(), // Главный экран (Начать тренировку)
     MyWorkoutsScreen(), // Мои тренировки
     ExerciseDatabaseScreen(), // База упражнений
+    ProgressGraphScreen(), // График прогресса
     SettingsScreen(), // Настройки
   ];
 
@@ -73,6 +75,10 @@ class _HomeScreenState extends State<HomeScreen> {
           BottomNavigationBarItem(
             icon: Icon(Icons.list),
             label: 'База упражнений',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.show_chart),
+            label: 'Прогресс',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.settings),
